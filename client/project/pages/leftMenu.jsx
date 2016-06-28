@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import SubHeader from 'material-ui/Subheader';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
 export default class LeftMenu extends Component {
@@ -23,28 +21,27 @@ export default class LeftMenu extends Component {
     render() {
         return (
             <List className={this.props.className}>
-                <Subheader>Nested List Items</Subheader>
-                <ListItem primaryText="项目专题" leftIcon={<ContentSend />}/>
-                <ListItem primaryText="产品资源" leftIcon={<ContentDrafts />}/>
+                <SubHeader>菜单</SubHeader>
                 <ListItem
-                    primaryText="Inbox"
-                    leftIcon={<ContentInbox />}
+                    primaryText="项目专题管理"
+                    leftIcon={<ActionGrade />}
                     initiallyOpen={true}
                     primaryTogglesNestedList={true}
                     nestedItems={[
                       <ListItem
                         key={1}
-                        primaryText="Starred"
-                        leftIcon={<ActionGrade />}
+                        primaryText="专题列表"
+                        leftIcon={<ContentSend />}
                       />,
                       <ListItem
                         key={2}
-                        primaryText="Sent Mail"
+                        primaryText="产品管理"
                         leftIcon={<ContentSend />}
-                        disabled={true}
-                        nestedItems={[
-                          <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
-                        ]}
+                      />,
+                      <ListItem
+                        key={3}
+                        primaryText="分类管理"
+                        leftIcon={<ContentSend />}
                       />
                     ]}
                 />

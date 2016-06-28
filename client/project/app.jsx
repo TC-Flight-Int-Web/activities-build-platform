@@ -4,25 +4,32 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
 
+import Topbar from "./pages/topbar";
 import LeftMenu from "./pages/leftMenu";
 import ProjectList from "./pages/projectList";
-import ProjectOperator from "./pages/projectOperator";
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import "./pages/style/main.css"
 
 class App extends Component {
-    render(){
+    render() {
         return (
             <div className="main-page">
-                <MuiThemeProvider >
-                    <LeftMenu className="left-menu" />
-                </MuiThemeProvider>
-                <MuiThemeProvider >
-                    <ProjectList className="right-body" />
-                </MuiThemeProvider>
+                <div className="top-nav">
+                    <Topbar />
+                </div>
+                <div className="content-body">
+                    <div className="left-menu">
+                        <LeftMenu />
+                    </div>
+
+                    <div className="right-body">
+                        <ProjectList />
+                    </div>
+                </div>
             </div>
         )
     }
@@ -31,6 +38,9 @@ class App extends Component {
 injectTapEventPlugin();
 
 render(
-    <App />,
+    <MuiThemeProvider >
+        <App />
+    </MuiThemeProvider>
+    ,
     document.getElementById("main")
 );

@@ -16,6 +16,28 @@ html,body,#main{
     height:100%;
 }
 
+.top-nav{
+    position: absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:56px;
+
+    z-index: 2;
+}
+
+.content-body{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    padding-top:56px;
+
+    z-index:1;
+}
 .left-menu{
     float:left;
     min-width:300px;
