@@ -14,6 +14,8 @@ import ActionGrade from 'material-ui/svg-icons/action/grade';
 
 import Dialog from 'material-ui/Dialog';
 
+import Utils from '../libs/utils';
+
 const topBtnStyle = {
     margin: 12
 };
@@ -226,7 +228,6 @@ export default class ProjectList extends Component {
                         <br />
                     </div>
                 </Dialog>
-
             </div>
         )
     }

@@ -2,12 +2,21 @@ import React, {Component} from "react";
 
 import {List, ListItem} from 'material-ui/List';
 import SubHeader from 'material-ui/Subheader';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 
 export default class LeftMenu extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeIndex : 0,
+        }
+    }
+
+    handleTap(index){
+        if(this.state.activeIndex == index)return;
+
+        this.setState({activeIndex:index});
     }
 
     componentWillMount() {
@@ -24,24 +33,27 @@ export default class LeftMenu extends Component {
                 <SubHeader>菜单</SubHeader>
                 <ListItem
                     primaryText="项目专题管理"
-                    leftIcon={<ActionGrade />}
+                    leftIcon={<ContentDrafts />}
                     initiallyOpen={true}
                     primaryTogglesNestedList={true}
                     nestedItems={[
                       <ListItem
                         key={1}
                         primaryText="专题列表"
-                        leftIcon={<ContentSend />}
+                        rightIcon={this.state.activeIndex==0 && <ContentSend />}
+                        onTouchTap={this.handleTap.bind(this,0)}
                       />,
                       <ListItem
                         key={2}
                         primaryText="产品管理"
-                        leftIcon={<ContentSend />}
+                        rightIcon={this.state.activeIndex==1 && <ContentSend />}
+                        onTouchTap={this.handleTap.bind(this,1)}
                       />,
                       <ListItem
                         key={3}
                         primaryText="分类管理"
-                        leftIcon={<ContentSend />}
+                        rightIcon={this.state.activeIndex==2 && <ContentSend />}
+                        onTouchTap={this.handleTap.bind(this,2)}
                       />
                     ]}
                 />
