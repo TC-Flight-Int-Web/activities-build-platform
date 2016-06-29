@@ -4,27 +4,40 @@
 
 
 var models = require('../models/ProjectInfo');
+var autoId = require('../models/AutoId');
 
 exports.addProject = function(req,res){
-    var instance = new models.ProjectInfo({
-        projectName : "张三",
-        projectId : 1,
-        beginDatetime : "2016-11-11",
-        endDatetime : "2016-12-12",
-        state : 1
-    });
+    autoId.getId(function(id){
+        console.log(`id=${id}`);
+        if(id){
+            console.log(`req.body=${JSON.stringify(req.body)}`);
 
-    instance.save(function (err) {
-        var response = {
-            result:false
-        };
-        if(err){
-            console.log(err.stack);
+            var instance = new models.ProjectInfo({
+                projectName : req.body.projectName,
+                projectId : id,
+                beginDatetime : req.body.beginDatetime,
+                endDatetime : req.body.endDatetime,
+                state : 1
+            });
+
+            console.log(`instance = ${instance}`);
+
+            instance.save(function (err) {
+                var response = {
+                    result:false
+                };
+                if(err){
+                    console.log(err.stack);
+                }else{
+                    console.log("save success");
+                    response.result = true;
+                }
+                res.send(JSON.stringify(response));
+            });
         }else{
-            console.log("save success");
-            response.result = true;
+            var response = {result:false};
+            res.send(response);
         }
-        res.send(JSON.stringify(response));
     });
 };
 

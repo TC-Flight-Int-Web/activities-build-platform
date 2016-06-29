@@ -36,6 +36,10 @@ export default class ProjectList extends Component {
     }
 
     componentWillMount(){
+        this.initList();
+    }
+
+    initList(){
         var that = this;
         Utils.get({
             url:'http://10.6.100.90:3000/listproject'
@@ -57,10 +61,30 @@ export default class ProjectList extends Component {
     }
 
     handlSave() {
-        this.handleClose();
+        var that = this;
+        var pName = this.refs.pName.getValue();
+        var bTime = this.refs.bTime.getDate();
+        var eTime = this.refs.eTime.getDate();
+
+        Utils.post({
+            url:"http://10.6.100.90:3000/addProject",
+            param:{
+                projectName : pName,
+                beginDatetime: bTime,
+                endDateTime:eTime
+            }
+        }).then(function(data){
+            if(data.result){
+                that.handleClose();
+                that.initList();
+            }else{
+                console.log('ajax error result');
+            }
+        })
+
     }
 
-    handleRowTouch(projectId) {
+    handleRowTouch() {
         alert(JSON.stringify(this));
     }
 

@@ -2,19 +2,27 @@
  * Created by kroll on 16/6/28.
  */
 var express = require('express');
+var bodyParser = require('body-parser');
+
 var app = express();
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://10.1.204.130:27017/tc_project');
+mongoose.connect('mongodb://10.6.100.90:27017/tc_project');
 
 var ProjectCtrl = require('./ctrl/projectCtrl');
 var AutoId = require('./models/AutoId');
 
 
 /* router */
-app.get('/listProject',ProjectCtrl.listProject);
-app.get('/addProject',ProjectCtrl.addProject);
-app.get('/getId',AutoId.getId);
+app.all('/listProject',ProjectCtrl.listProject);
+app.all('/addProject',ProjectCtrl.addProject);
+// app.get('/getId',AutoId.getId);
 
 
 /* listen */

@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 var AutoIdInfo = new Schema({
     autoId: Number
 });
@@ -27,13 +28,13 @@ AutoId.find(function (err, docs) {
     }
 });
 
-exports.getId = function (req, res) {
-    AutoId.find(function (err, docs) {
+exports.getId = function (callback) {
+    AutoId.findByIdAndUpdate("57732a130afdf4b50481752c",{$inc:{autoId:1}},function(err,item){
         if (err) {
             console.log(`err=${err.stack}`);
-            res.send(err.message);
+            callback();
         } else {
-            res.send(docs);
+            callback(item.autoId);
         }
     });
 };
