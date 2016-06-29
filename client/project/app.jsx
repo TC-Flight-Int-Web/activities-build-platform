@@ -9,10 +9,9 @@ import LeftMenu from "./pages/leftMenu";
 import ProjectList from "./pages/projectList";
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import "./pages/style/main.css"
+import "./style/main.css"
 
 class App extends Component {
     render() {

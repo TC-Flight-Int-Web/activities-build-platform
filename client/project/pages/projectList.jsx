@@ -21,8 +21,8 @@ const topBtnStyle = {
 };
 
 const dialogStyle = {
-    width:'300px',
-    textAlgin:'center'
+    width: '300px',
+    textAlgin: 'center'
 };
 
 export default class ProjectList extends Component {
@@ -30,8 +30,22 @@ export default class ProjectList extends Component {
         super(props);
         this.state = {
             open: false,
-            dialogTitle: '新建专题'
+            dialogTitle: '新建专题',
+            projects:[]
         }
+    }
+
+    componentWillMount(){
+        var that = this;
+        Utils.get({
+            url:'http://10.6.100.90:3000/listproject'
+        }).then(function(data){
+            console.log(`${data}`);
+
+            that.setState({projects:data});
+        }).catch(function(error){
+            console.log(`${error.stack}`);
+        })
     }
 
     handleOpen() {
@@ -46,11 +60,38 @@ export default class ProjectList extends Component {
         this.handleClose();
     }
 
-    handleRowTouch(e) {
+    handleRowTouch(projectId) {
         alert(JSON.stringify(this));
     }
 
     render() {
+        var list = [];
+        if (this.state.projects && this.state.projects.length > 0) {
+            for (let i = 0; i < this.state.projects.length; i++) {
+                let item = this.state.projects[i];
+                list.push(<TableRow key={"tableRow_" + i} >
+                            <TableRowColumn>{item.projectName}</TableRowColumn>
+                            <TableRowColumn>{item.beginDatetime}~{item.endDatetime}</TableRowColumn>
+                            <TableRowColumn>{item.state==1?"有效":"无效"}</TableRowColumn>
+                            <TableRowColumn>
+                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
+                                            onTouchTap={this.handleRowTouch.bind(this,item.projectId)}>
+                                    <ActionGrade />
+                                </IconButton>
+                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
+                                            onTouchTap={this.handleRowTouch.bind(this,item.projectId)}>
+                                    <ActionGrade />
+                                </IconButton>
+                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
+                                            onTouchTap={this.handleRowTouch.bind(this,item.projectId)}>
+                                    <ActionGrade />
+                                </IconButton>
+                            </TableRowColumn>
+                        </TableRow>)
+            }
+        }
+
+
         return (
             <div className={this.props.className}>
                 <div>
@@ -67,139 +108,7 @@ export default class ProjectList extends Component {
                         </TableRow>
                     </TableHeader>
                     <TableBody displayRowCheckbox={false}>
-                        <TableRow>
-                            <TableRowColumn>周边游周边游周边游周边游周边游周边游周边游周边游周边游周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch.bind(this)}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn>周边游</TableRowColumn>
-                            <TableRowColumn>2016-07-11~2016-07-31</TableRowColumn>
-                            <TableRowColumn>有效</TableRowColumn>
-                            <TableRowColumn>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                                <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right"
-                                            onTouchTap={this.handleRowTouch}>
-                                    <ActionGrade />
-                                </IconButton>
-                            </TableRowColumn>
-                        </TableRow>
+                        {list}
                     </TableBody>
                 </Table>
 

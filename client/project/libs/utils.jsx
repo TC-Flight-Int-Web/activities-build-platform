@@ -35,7 +35,7 @@ export default {
                 dataType:'json',
                 contentType:'application/json',
                 success(data){
-                    resolve(data.result);
+                    resolve(data);
                 },
                 error(error) {
                     reject(error);

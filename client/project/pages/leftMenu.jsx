@@ -54,6 +54,12 @@ export default class LeftMenu extends Component {
                         primaryText="分类管理"
                         rightIcon={this.state.activeIndex==2 && <ContentSend />}
                         onTouchTap={this.handleTap.bind(this,2)}
+                      />,
+                      <ListItem
+                        key={4}
+                        primaryText="模板管理"
+                        rightIcon={this.state.activeIndex==3 && <ContentSend />}
+                        onTouchTap={this.handleTap.bind(this,3)}
                       />
                     ]}
                 />
