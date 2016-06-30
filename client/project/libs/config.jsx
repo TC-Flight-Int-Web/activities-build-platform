@@ -1,7 +1,8 @@
 export default {
-    apiRoot : 'http://10.6.100.90:3000/',
+    apiRoot : 'http://10.1.204.73:3000/',
 
     api : {
-        listproject:'listproject'
+        listproject:'listproject',
+        addProject:'addProject'
     }
 }

@@ -84,7 +84,7 @@ export default class ProjectList extends Component {
 
         this.props.shouldChangeLoadingState(true);
         Utils.post({
-            url: "http://10.6.100.90:3000/addProject",
+            url: Config.apiRoot + Config.api.addProject,
             param: {
                 projectName: pName,
                 beginDatetime: bTime,

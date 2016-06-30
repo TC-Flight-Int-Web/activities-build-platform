@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://10.6.100.90:27017/tc_project');
+mongoose.connect('mongodb://10.1.204.73:27017/tc_project');
 
 var ProjectCtrl = require('./ctrl/projectCtrl');
 var AutoId = require('./models/AutoId');

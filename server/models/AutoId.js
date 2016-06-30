@@ -34,7 +34,14 @@ exports.getId = function (callback) {
             console.log(`err=${err.stack}`);
             callback();
         } else {
-            callback(item.autoId);
+            if(!item){
+                new AutoId({
+                    autoId:1
+                }).save();
+                callback(1);
+            }else{
+                callback(item.autoId);
+            }
         }
     });
 };
