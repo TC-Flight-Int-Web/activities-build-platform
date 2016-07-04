@@ -2,40 +2,49 @@
  * Created by kroll on 16/6/28.
  */
 
-
+var rh = require('../utils/ResultHelp');
 var models = require('../models/ProjectInfo');
-var autoId = require('./autoIdCtrl');
+
+var AutoIdCtrl = require('./autoIdCtrl');
 
 exports.addProject = function(req,res){
-    autoId.getId(function(id){
+    var key = rh.valid(["projectName",
+        "beginDatetime",
+        "endDatetime",
+        "templateId"],req.body);
+    if(key){
+        res.send(rh.error(rh.ResultCode.VALIDPARAMS,"缺少参数" + key));
+        return;
+    }
+
+    AutoIdCtrl.getId(function(id){
         console.log(`id=${id}`);
         if(id){
-
             var instance = new models.ProjectInfo({
-                projectName : req.body.projectName,
                 projectId : id,
+                projectName : req.body.projectName,
                 beginDatetime : req.body.beginDatetime,
                 endDatetime : req.body.endDatetime,
-                state : 1
+                templateId : req.body.templateId,
+                state : 1 ,
+                projectDesc : req.body.projectDesc || "",
+                createTime : new Date()
             });
-
             console.log(`instance = ${instance}`);
 
-            instance.save(function (err) {
-                var response = {
-                    result:false
-                };
+            instance.save(function(err) {
+                var result = {};
                 if(err){
                     console.log(err.stack);
+                    result = rh.error(rh.ResultCode.DBOPERATORERROR,"添加失败");
                 }else{
                     console.log("save success");
-                    response.result = true;
+                    result = rh.success(rh.ResultCode.SUCCESS,"添加成功",{projectId:instance.projectId});
                 }
-                res.send(JSON.stringify(response));
+                res.send(result);
             });
         }else{
-            var response = {result:false};
-            res.send(response);
+            res.send(rh.error(rh.ResultCode.DBOPERATORERROR,"生成自增id失败"));
         }
     });
 };
@@ -43,6 +52,6 @@ exports.addProject = function(req,res){
 exports.listProject = function (req,res) {
     models.ProjectInfo.find(function(err,docs){
         console.log(`${docs}`);
-        res.send(docs);
+        res.send(rh.success(rh.ResultCode.SUCCESS,"查询成功",docs));
     });
 };

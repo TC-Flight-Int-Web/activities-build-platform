@@ -10,4 +10,4 @@ var AutoIdInfo = new Schema({
     autoId: Number
 });
 
-exports.AutoId = mongoose.model('AutoId', AutoIdInfo);
+exports.AutoIdInfo = mongoose.model('AutoIdInfo', AutoIdInfo);

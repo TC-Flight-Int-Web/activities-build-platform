@@ -15,7 +15,7 @@ var ProjectInfo = new Schema({
     //结束时间
     endDatetime: String,
     //模板编号
-    TemplateId: Number,
+    templateId: Number,
     //状态
     state: Number,
     //项目描述
