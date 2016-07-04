@@ -4,13 +4,12 @@
 
 
 var models = require('../models/ProjectInfo');
-var autoId = require('../models/AutoId');
+var autoId = require('./autoIdCtrl');
 
 exports.addProject = function(req,res){
     autoId.getId(function(id){
         console.log(`id=${id}`);
         if(id){
-            console.log(`req.body=${JSON.stringify(req.body)}`);
 
             var instance = new models.ProjectInfo({
                 projectName : req.body.projectName,
