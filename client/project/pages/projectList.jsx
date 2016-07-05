@@ -57,10 +57,16 @@ export default class ProjectList extends Component {
         Utils.get({
             url: Config.apiRoot + Config.api.listproject
         }).then(function (data) {
-            console.log(`${data}`);
-
-            that.setState({projects: data});
             that.props.shouldChangeLoadingState(false);
+
+            console.log(`${JSON.stringify(data)}`);
+            if(data.header && data.header.resultCode != "0000"){
+                that.props.showSnackbar(data.header.resultMessage || "获取数据失败,请重试");
+            }
+            else if(data.body){
+                that.setState({projects: data.body});
+            }
+
         }).catch(function () {
             console.log(`ajax catch error ${Config.apiRoot + Config.api.listproject}`);
         })
@@ -91,11 +97,11 @@ export default class ProjectList extends Component {
                 endDateTime: eTime
             }
         }).then(function (data) {
-            if (data.result) {
+            if(data.header && data.header.resultCode == "0000"){
                 that.handleClose();
                 that.initList();
             } else {
-                console.log('ajax error result');
+                that.props.showSnackbar(data.header.resultMessage || "获取数据失败,请重试");
             }
         })
     }
@@ -170,7 +176,6 @@ export default class ProjectList extends Component {
                           />
                     ]}
                     contentStyle={style.dialogStyle}
-                    modal={true}
                     open={this.state.open}
                     onRequestClose={this.handleClose.bind(this)}
                 >

@@ -7,9 +7,10 @@ import {render} from "react-dom";
 import Topbar from "./pages/topbar";
 import LeftMenu from "./pages/leftMenu";
 import ProjectList from "./pages/projectList";
+import SourceList from "./pages/sourceList";
+import TemplateList from "./pages/templateList";
 
 import Loading from './components/loading';
-
 import Snackbar from 'material-ui/Snackbar';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -21,6 +22,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
+            showPage : 0,
             showLoading : false,
             showSnackbar : false,
             snackbarMessage : '通告'
@@ -32,7 +34,15 @@ class App extends Component {
     }
 
     handleSnackbarTap(){
-        this.setState({showSnackbar:'true'});
+        this.setState({showSnackbar:true});
+    }
+
+    showSnackbar(content){
+        this.setState({showSnackbar:true,snackbarMessage:content});
+    }
+
+    onMenuItemhandlerTap(index){
+        this.setState({showPage:index});
     }
 
     render() {
@@ -43,11 +53,25 @@ class App extends Component {
                 </div>
                 <div className="content-body">
                     <div className="left-menu">
-                        <LeftMenu />
+                        <LeftMenu onMenuItemhandlerTap={this.onMenuItemhandlerTap.bind(this)} />
                     </div>
 
                     <div className="right-body">
-                        <ProjectList shouldChangeLoadingState={this.changeShowLoadingState.bind(this)}/>
+                        { this.state.showPage == 0 &&
+                            <ProjectList shouldChangeLoadingState={this.changeShowLoadingState.bind(this)}
+                                         showSnackbar={this.showSnackbar.bind(this)}/>
+                        }
+
+                        { this.state.showPage == 1 &&
+                            <SourceList shouldChangeLoadingState={this.changeShowLoadingState.bind(this)}
+                                        showSnackbar={this.showSnackbar.bind(this)}/>
+                        }
+
+                        { this.state.showPage == 2 &&
+                            <TemplateList shouldChangeLoadingState={this.changeShowLoadingState.bind(this)}
+                                        showSnackbar={this.showSnackbar.bind(this)}/>
+                        }
+
                     </div>
                 </div>
 

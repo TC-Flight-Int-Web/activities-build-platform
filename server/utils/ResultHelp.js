@@ -38,7 +38,6 @@ exports.error = function(errorCode,errorMessage){
         return {
             header:{
                 resultCode:errorCode,
-                resultState:false,
                 resultMessage:errorMessage || ""
             }
         }
@@ -52,7 +51,6 @@ exports.success = function(resultCode,message,body){
         return {
             header:{
                 resultCode:resultCode,
-                resultState:true,
                 resultMessage:message || ""
             },
             body:body

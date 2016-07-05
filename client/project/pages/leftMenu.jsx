@@ -17,6 +17,7 @@ export default class LeftMenu extends Component {
         if(this.state.activeIndex == index)return;
 
         this.setState({activeIndex:index});
+        this.props.onMenuItemhandlerTap(index);
     }
 
     componentWillMount() {
@@ -45,21 +46,15 @@ export default class LeftMenu extends Component {
                       />,
                       <ListItem
                         key={2}
-                        primaryText="产品管理"
+                        primaryText="资源管理"
                         rightIcon={this.state.activeIndex==1 ? <ContentSend /> : null}
                         onTouchTap={this.handleTap.bind(this,1)}
                       />,
                       <ListItem
                         key={3}
-                        primaryText="分类管理"
+                        primaryText="模板管理"
                         rightIcon={this.state.activeIndex==2 ? <ContentSend /> : null}
                         onTouchTap={this.handleTap.bind(this,2)}
-                      />,
-                      <ListItem
-                        key={4}
-                        primaryText="模板管理"
-                        rightIcon={this.state.activeIndex==3 ? <ContentSend /> : null}
-                        onTouchTap={this.handleTap.bind(this,3)}
                       />
                     ]}
                 />
